@@ -8,17 +8,19 @@ services:
     env_file:
       - ./etl_service/.env
     volumes:
-      - /postgresql/data:/var/lib/postgresql/data
+      - ./postgresql/data:/var/lib/postgresql/data
       - ./postgres_dump/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
       
   elasticsearch:
     image: elasticsearch:8.6.2
     container_name: elasticsearch
     restart: unless-stopped
+    env_file:
+      - ./etl_service/.env
     ports:
-      - "9200:9200"
-    volumes:
-      - ./etl_service/entrypoint.sh:/entrypoint.sh
+      - 9200:9200
+    # volumes:
+      # - ./etl_service/entrypoint.sh:/entrypoint.sh
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
@@ -36,7 +38,7 @@ services:
   redis:
     image: redis:latest
     container_name: redis
-    ports:
-      - "6379:6379"
+    env_file:
+      - ./etl_service/.env
     depends_on:
       - elasticsearch

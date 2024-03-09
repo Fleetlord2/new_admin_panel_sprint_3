@@ -12,7 +12,8 @@ from models import GenresModel, MovieModel
 @backoff.on_exception(**BACKOFF_CFG)
 def postgres_client() -> connection:
     """Create PostgreSQL connection."""
-    return psycopg2.connect(**POSTGRES_DSN, cursor_factory=DictCursor)
+    with psycopg2.connect(**POSTGRES_DSN, cursor_factory=DictCursor) as conn:
+        return conn
 
 
 @backoff.on_exception(**BACKOFF_CFG)
