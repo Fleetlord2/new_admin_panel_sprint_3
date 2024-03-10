@@ -12,7 +12,11 @@ class Settings(BaseSettings):
     ELASTIC_HOST: str
     ELASTIC_PORT: str
     REDIS_HOST: str
-    REDIS_PORT: str
+    REDIS_PORT: str    
+    POSTGRES_PASSWORD: str
+    POSTGRES_USER: str
+    POSTGRES_DB: str
+
 
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 

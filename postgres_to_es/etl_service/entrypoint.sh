@@ -3,8 +3,8 @@
 readonly cmd="$*"
 
 while ! nc -z elasticsearch 9200; do
-      sleep 5
-      echo "Elasticsearch not ready"
+    sleep 5
+    echo "Elasticsearch not ready"
 done
 
 echo "Elasticsearch is ready"
